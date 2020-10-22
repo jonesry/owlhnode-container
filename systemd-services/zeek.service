@@ -1,0 +1,33 @@
+[Unit]
+Description=The Zeek Network Security Monitor
+Wants=network-online.target
+
+[Service]
+Type=simple
+Environment=INTERFACE=ens192
+EnvironmentFile=-/etc/default/zeek
+
+User=zeek
+Group=zeek
+CapabilityBoundingSet=CAP_NET_RAW
+AmbientCapabilities=CAP_NET_RAW
+NoNewPrivileges=yes
+
+ProtectSystem=strict
+PrivateTmp=yes
+ProtectHome=yes
+ReadWritePaths=/usr/local/zeek/logs
+PrivateDevices=yes
+ProtectKernelTunables=yes
+ProtectControlGroups=yes
+ProtectKernelModules=yes
+
+SystemCallFilter=@system-service 
+SystemCallErrorNumber=EPERM
+
+WorkingDirectory=/usr/local/zeek/logs
+UMask=127
+ExecStart=/usr/local/zeek/bin/zeek -i ${INTERFACE} -C
+
+[Install]
+WantedBy=multi-user.target
