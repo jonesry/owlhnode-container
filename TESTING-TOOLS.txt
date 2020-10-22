@@ -1,0 +1,13 @@
+tcpdump 
+lsof 
+net-tools 
+iptraf-ng 
+iproute
+vim-enhanced
+less
+nmap-ncat
+socat
+openssl
+mlocate
+passwd
+shadow-utils
